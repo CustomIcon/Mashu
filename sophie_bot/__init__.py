@@ -27,7 +27,7 @@ from sophie_bot.utils.logger import log
 from sophie_bot.versions import SOPHIE_VERSION
 
 log.info("----------------------")
-log.info("|      SophieBot     |")
+log.info("|      MashuBot      |")
 log.info("----------------------")
 log.info("Version: " + SOPHIE_VERSION)
 
@@ -36,6 +36,22 @@ if get_bool_key("DEBUG_MODE") is True:
     log.setLevel(logging.DEBUG)
     log.warn("! Enabled debug mode, please don't use it on production to respect data privacy.")
 
+ENV = bool(os.environ.get('ENV', False))
+if ENV:
+    TOKEN = os.environ.get('TOKEN')
+    host = os.environ.get('REDIS_URI')
+    MONGO_URI = os.environ.get('MONGO_URI')
+    MONGO_DB = os.environ.get('MONGO_DB')
+    MONGO_PORT = int(os.environ.get('MONGO_PORT', None))
+    APP_HASH = os.environ.get('APP_HASH', None)
+    APP_ID = int(os.environ.get('APP_ID', None))
+    OWNER_ID = int(os.environ.get('OWNER_ID', None))
+    OPERATORS = set(int(x) for x in os.environ.get("OPERATORS", "").split())
+    REDIS_URI = os.environ.get('REDIS_URI')
+    REDIS_PORT = int(os.environ.get('REDIS_PORT', None))
+    REDIS_DB_FSM = int(os.environ.get('REDIS_DB_FSM', None))
+    SENTRY_API_KEY = os.environ.get('SENTRY_API_KEY', None)
+    
 TOKEN = get_str_key("TOKEN", required=True)
 OWNER_ID = get_int_key("OWNER_ID", required=True)
 

@@ -39,7 +39,6 @@ if get_bool_key("DEBUG_MODE") is True:
 ENV = bool(os.environ.get('ENV', False))
 if ENV:
     TOKEN = os.environ.get('TOKEN')
-    host = os.environ.get('REDIS_URI')
     MONGO_URI = os.environ.get('MONGO_URI')
     MONGO_DB = os.environ.get('MONGO_DB')
     MONGO_PORT = int(os.environ.get('MONGO_PORT', None))
@@ -51,6 +50,20 @@ if ENV:
     REDIS_PORT = int(os.environ.get('REDIS_PORT', None))
     REDIS_DB_FSM = int(os.environ.get('REDIS_DB_FSM', None))
     SENTRY_API_KEY = os.environ.get('SENTRY_API_KEY', None)
+else:
+    import config as Config
+    TOKEN = Config.TOKEN
+    MONGO_URI = Config.MONGO_URI
+    MONGO_DB = Config.MONGO_DB
+    MONGO_PORT = Config.MONGO_PORT
+    APP_HASH = Config.APP_HASH
+    APP_ID = Config.APP_ID
+    OWNER_ID = Config.OWNER_ID
+    OPERATORS = Config.OPERATORS
+    REDIS_URI = Config.REDIS_URI
+    REDIS_PORT = Config.REDIS_PORT
+    REDIS_DB_FSM = Config.REDIS_DB_FSM
+    SENTRY_API_KEY = Config.SENTRY_API_KEY
     
 TOKEN = get_str_key("TOKEN", required=True)
 OWNER_ID = get_int_key("OWNER_ID", required=True)
